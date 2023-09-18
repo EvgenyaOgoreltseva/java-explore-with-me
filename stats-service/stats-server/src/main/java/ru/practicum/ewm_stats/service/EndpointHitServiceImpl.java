@@ -38,7 +38,6 @@ public class EndpointHitServiceImpl implements EndpointHitService {
             log.error("getStatsDto is null in getViewStats method.");
             return Collections.emptyList();
         }
-
         LocalDateTime startDate = LocalDateTime.parse(getStatsDto.getStart(), DATE_TIME_FORMATTER);
         LocalDateTime endDate = LocalDateTime.parse(getStatsDto.getEnd(), DATE_TIME_FORMATTER);
 
