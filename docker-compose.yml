@@ -25,7 +25,7 @@ services:
       - POSTGRES_PASSWORD=explore
     volumes:
       - /var/lib/postgresql/data/
-      - ./stats-service/stats-server/src/main/resources/schema.sql:/docker-entrypoint-initdb.d/init.sql
+      - stats-service/stats-server/src/main/resources/schema.sql:/docker-entrypoint-initdb.d/init.sql
 
   ewm-service:
     build: ./main-service
@@ -53,8 +53,6 @@ services:
       - POSTGRES_DB=ewm
       - POSTGRES_USER=explore
       - POSTGRES_PASSWORD=explore
-    volumes:
-      - /var/lib/postgresql/data/
-      - ./main-service/src/main/resources/schema.sql:/docker-entrypoint-initdb.d/init.sql
+
 
 
