@@ -9,7 +9,7 @@ services:
     depends_on:
       - stats-db
     environment:
-      - SPRING_DATASOURCE_URL=jdbc:postgresql://stats-db:5432/stat
+      - SPRING_DATASOURCE_URL=jdbc:postgresql://db:5432/stat
       - SPRING_DATASOURCE_USERNAME=explore
       - SPRING_DATASOURCE_PASSWORD=explore
       - SERVER_PORT=9090
@@ -27,6 +27,7 @@ services:
       - /var/lib/postgresql/data/
       - ./stats-service/stats-server/src/main/resources/schema.sql:/docker-entrypoint-initdb.d/init.sql
 
+
   ewm-service:
     build: ./main-service
     image: main
@@ -38,17 +39,17 @@ services:
       - stats-server
     environment:
       - STAT_URL=http://stats-server:9090
-      - SPRING_DATASOURCE_URL=jdbc:postgresql://ewm-db:5432/ewm
+      - SPRING_DATASOURCE_URL=jdbc:postgresql://db:5432/ewm
       - SPRING_DATASOURCE_USERNAME=explore
       - SPRING_DATASOURCE_PASSWORD=explore
       - SERVER_PORT=8080
 
   ewm-db:
-    image: postgres:15.1-alpine
-    container_name: ewm-db
-    ports:
-      - "6541:5432"
-    environment:
-      - POSTGRES_DB=ewm
-      - POSTGRES_USER=explore
-      - POSTGRES_PASSWORD=explore
+      image: postgres:15.1-alpine
+      container_name: ewm-db
+      ports:
+        - "6541:5432"
+      environment:
+        - POSTGRES_DB=ewm
+        - POSTGRES_USER=explore
+        - POSTGRES_PASSWORD=explore
