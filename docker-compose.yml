@@ -25,7 +25,7 @@ services:
       - POSTGRES_PASSWORD=explore
     volumes:
       - /var/lib/postgresql/data/
-      - stats-service/stats-server/src/main/resources/schema.sql:/docker-entrypoint-initdb.d/init.sql
+      - ./stats-service/stats-server/src/main/resources/schema.sql:/docker-entrypoint-initdb.d/init.sql
 
   ewm-service:
     build: ./main-service
@@ -43,7 +43,6 @@ services:
       - SPRING_DATASOURCE_PASSWORD=explore
       - SERVER_PORT=8080
 
-
   ewm-db:
     image: postgres:15.1-alpine
     container_name: ewm-db
@@ -53,6 +52,3 @@ services:
       - POSTGRES_DB=ewm
       - POSTGRES_USER=explore
       - POSTGRES_PASSWORD=explore
-
-
-
