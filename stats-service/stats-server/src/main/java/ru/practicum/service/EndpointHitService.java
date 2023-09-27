@@ -11,5 +11,5 @@ public interface EndpointHitService {
 
     EndpointHitDto saveHit(EndpointHitDto endpointHitDto);
 
-    List<ViewStatsDto> getViewStats(@Valid GetStatsDto getStatsDto);
+    List<ViewStatsDto> getViewStats( GetStatsDto getStatsDto);
 }
