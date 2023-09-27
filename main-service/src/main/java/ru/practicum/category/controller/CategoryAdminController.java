@@ -21,6 +21,7 @@ public class CategoryAdminController {
     public Category createNewCategory(@Valid @RequestBody CategoryDto categoryDto) {
         return categoryService.createNewCategory(categoryDto);
     }
+    
     @DeleteMapping("/{catId}")
     @ResponseStatus(value = HttpStatus.NO_CONTENT)
     public void removeCategory(@PathVariable Long catId) {
