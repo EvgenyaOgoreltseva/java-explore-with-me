@@ -4,8 +4,6 @@ services:
     build: ./stats-service/stats-server
     image: stats
     container_name: stats-server
-    networks:
-      - mynetwork
     ports:
       - "9090:9090"
     depends_on:
@@ -19,8 +17,6 @@ services:
   stats-db:
     image: postgres:15.1-alpine
     container_name: stats-db
-    networks:
-      - mynetwork
     ports:
       - "6540:5432"
     environment:
@@ -35,8 +31,6 @@ services:
     build: ./main-service
     image: main
     container_name: ewm-service
-    networks:
-      - mynetwork
     ports:
       - "8080:8080"
     depends_on:
@@ -52,14 +46,9 @@ services:
   ewm-db:
     image: postgres:15.1-alpine
     container_name: ewm-db
-    networks:
-      - mynetwork
     ports:
       - "6541:5432"
     environment:
       - POSTGRES_DB=ewm
       - POSTGRES_USER=explore
       - POSTGRES_PASSWORD=explore
-
-networks:
-  mynetwork:
