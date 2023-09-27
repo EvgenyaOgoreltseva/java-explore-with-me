@@ -28,6 +28,6 @@ public class StatsController {
                                            @RequestParam String end,
                                            @RequestParam(required = false) List<String> uris,
                                            @RequestParam(defaultValue = "false") Boolean unique) {
-        return endpointHitService.getViewStats(new GetStatsDto(start, end, uris, unique));
+        return endpointHitService.getViewStats(new @Valid GetStatsDto(start, end, uris, unique));
     }
 }
