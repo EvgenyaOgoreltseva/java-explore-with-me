@@ -41,4 +41,5 @@ public interface EndpointHitRepository extends JpaRepository<EndpointHit, Long> 
             "group by e.uri, e.app " +
             "order by count(e.ip) desc ")
     List<ViewStatsDto> getStatsUniqueByTime(LocalDateTime start, LocalDateTime end);
+
 }
