@@ -30,6 +30,7 @@ import static ru.practicum.requests.mapper.ParticipationRequestMapper.toParticip
 @Slf4j
 @RequiredArgsConstructor
 public class ParticipationRequestServiceImpl implements ParticipationRequestService {
+
     private final ParticipationRequestRepository participationRequestRepository;
     private final EventRepository eventRepository;
     private final UserRepository userRepository;
@@ -42,7 +43,7 @@ public class ParticipationRequestServiceImpl implements ParticipationRequestServ
             throw new DataConflictException("Запрос на участие уже был отправлен");
         }
 
-        User requester =getUser(userId);
+        User requester = getUser(userId);
         Event event = getEvent(eventId);
 
         if (userId.equals(event.getInitiator().getId())) {
@@ -142,9 +143,9 @@ public class ParticipationRequestServiceImpl implements ParticipationRequestServ
                 }
             }
             requests = participationRequestRepository.saveAll(requests);
-            List<ParticipationRequestDto> confirmedRequestDtos = toParticipationRequestDtoList( participationRequestRepository.findAllByEventIdAndStatus(eventId, RequestStatus.CONFIRMED));
+            List<ParticipationRequestDto> confirmedRequestDtos = toParticipationRequestDtoList(participationRequestRepository.findAllByEventIdAndStatus(eventId, RequestStatus.CONFIRMED));
 
-            List<ParticipationRequestDto> rejectedRequestDtos = toParticipationRequestDtoList( participationRequestRepository.findAllByEventIdAndStatus(eventId, RequestStatus.REJECTED));
+            List<ParticipationRequestDto> rejectedRequestDtos = toParticipationRequestDtoList(participationRequestRepository.findAllByEventIdAndStatus(eventId, RequestStatus.REJECTED));
 
             return new EventParticipationRequestStatusUpdateResponseDto(confirmedRequestDtos, rejectedRequestDtos);
         } else {

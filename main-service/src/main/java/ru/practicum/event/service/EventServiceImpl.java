@@ -38,7 +38,7 @@ import java.util.stream.Collectors;
 @Service
 @Slf4j
 @RequiredArgsConstructor
-public class EventServiceImpl implements EventService{
+public class EventServiceImpl implements EventService {
     private final ViewStatsClient viewStatsClient;
     private static final String APP = "ewm-main-service";
     private static final String LOWER_DATE = "1970-01-01 00:00:00";

@@ -23,7 +23,8 @@ public class CategoryMapper {
                 .name(category.getName())
                 .build();
     }
-    public static List<Category> toCategoriesListDto (Page<Category> categories) {
+
+    public static List<Category> toCategoriesListDto(Page<Category> categories) {
         return categories.stream().collect(Collectors.toList());
     }
 }

@@ -10,7 +10,6 @@ import java.util.List;
 @AllArgsConstructor
 @NoArgsConstructor
 public class GetStatsDto {
-
     @NotNull
     private String start;
     @NotNull

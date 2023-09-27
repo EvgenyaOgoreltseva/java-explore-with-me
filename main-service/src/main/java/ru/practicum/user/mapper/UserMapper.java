@@ -9,7 +9,7 @@ import ru.practicum.user.model.User;
 @UtilityClass
 public class UserMapper {
     public static User toUser(UserDto userDto) {
-        return  User.builder()
+        return User.builder()
                 .id(null)
                 .name(userDto.getName())
                 .email(userDto.getEmail())
