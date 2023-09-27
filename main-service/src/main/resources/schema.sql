@@ -44,7 +44,7 @@ CREATE TABLE IF NOT EXISTS event (
     ),
     CONSTRAINT fk_category_id FOREIGN KEY (
        category_id
-    ) REFERENCES category (id) ON DELETE CASCADE ,
+    ) REFERENCES category (id) ,
     CONSTRAINT fk_initiator_id FOREIGN KEY (
        initiator_id
     ) REFERENCES users (id),
