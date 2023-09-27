@@ -13,6 +13,7 @@ import java.util.List;
 
 @RestController
 @RequiredArgsConstructor
+@Valid
 public class StatsController {
 
     private final EndpointHitService endpointHitService;
