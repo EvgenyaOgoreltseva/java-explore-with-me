@@ -1,6 +1,5 @@
 package ru.practicum.category.controller;
 
-import com.sun.nio.sctp.IllegalReceiveException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 import ru.practicum.category.model.Category;
