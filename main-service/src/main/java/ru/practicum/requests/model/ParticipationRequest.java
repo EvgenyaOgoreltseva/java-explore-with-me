@@ -1,10 +1,7 @@
 package ru.practicum.requests.model;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Data;
-import lombok.RequiredArgsConstructor;
+import lombok.*;
 import ru.practicum.event.model.Event;
 import ru.practicum.event.model.RequestStatus;
 import ru.practicum.user.model.User;
@@ -13,11 +10,13 @@ import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import java.time.LocalDateTime;
 
-@Data
-@RequiredArgsConstructor
+@Getter
+@Setter
+@NoArgsConstructor
 @AllArgsConstructor
 @Entity
 @Builder
+@Table(name = "PARTICIPATION_REQUEST")
 public class ParticipationRequest {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

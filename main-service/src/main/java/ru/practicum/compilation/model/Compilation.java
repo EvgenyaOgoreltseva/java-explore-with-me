@@ -1,9 +1,6 @@
 package ru.practicum.compilation.model;
 
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Data;
-import lombok.RequiredArgsConstructor;
+import lombok.*;
 import ru.practicum.event.model.Event;
 
 import javax.persistence.*;
@@ -12,11 +9,13 @@ import javax.validation.constraints.Size;
 import java.util.HashSet;
 import java.util.Set;
 
-@Data
-@RequiredArgsConstructor
+@Getter
+@Setter
+@NoArgsConstructor
 @AllArgsConstructor
-@Entity
 @Builder
+@Entity
+@Table(name = "compilation")
 public class Compilation {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

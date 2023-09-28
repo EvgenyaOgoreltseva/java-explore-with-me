@@ -18,10 +18,6 @@ public class CategoryPublicController {
     @GetMapping
     public List<Category> findAllCategory(@RequestParam(value = "from", defaultValue = "0", required = false) Integer from,
                                           @RequestParam(value = "size", defaultValue = "10", required = false) Integer size) {
-
-        if (size <= 0 || from < 0) {
-            throw new IllegalReceiveException("Неверно указан параметр");
-        }
         return categoryService.findAllCategory(from, size);
     }
 

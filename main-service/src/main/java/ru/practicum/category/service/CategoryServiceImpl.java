@@ -1,5 +1,6 @@
 package ru.practicum.category.service;
 
+import com.sun.nio.sctp.IllegalReceiveException;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.domain.PageRequest;
@@ -59,6 +60,9 @@ public class CategoryServiceImpl implements CategoryService {
     @Override
     @Transactional(readOnly = true)
     public List<Category> findAllCategory(int from, int size) {
+        if (size <= 0 || from < 0) {
+            throw new IllegalReceiveException("Неверно указан параметр");
+        }
         int page = 0;
         if (from != 0) {
             page = from / size;

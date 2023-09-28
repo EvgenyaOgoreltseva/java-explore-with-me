@@ -1,7 +1,9 @@
 package ru.practicum.compilation.service;
 
+import com.sun.nio.sctp.IllegalReceiveException;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -52,12 +54,12 @@ public class CompilationServiceImpl implements CompilationService {
     @Transactional
     @Override
     public void removeCompilation(Long id) {
-        if (!compilationsRepository.existsById(id)) {
+        try {
+            compilationsRepository.deleteById(id);
+            log.info("Подборка удалена.");
+        } catch (EmptyResultDataAccessException e) {
             throw new UserNotFoundException("Подборка не найдена");
         }
-        compilationsRepository.deleteById(id);
-        log.info("Подборка удалена.");
-
     }
 
     @Transactional(readOnly = true)
@@ -70,6 +72,9 @@ public class CompilationServiceImpl implements CompilationService {
     @Override
     @Transactional(readOnly = true)
     public List<CompilationDto> getCompilationsByPinned(Boolean pinned, Integer from, Integer size) {
+        if (size <= 0 || from < 0) {
+            throw new IllegalReceiveException("Неверно указан параметр");
+        }
         List<Compilation> compilations;
         if (pinned != null) {
             compilations = compilationsRepository.findAllByPinned(pinned, PageRequest.of(from / size, size));

@@ -23,13 +23,13 @@ import java.util.stream.Collectors;
 @RequiredArgsConstructor
 public class EventClient {
     private static final String START = "1970-01-01 00:00:00";
-    private static final DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
+    private static final DateTimeFormatter FORMATTER = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
     private final ParticipationRequestRepository requestRepository;
     private final ViewStatsClient viewStatsClient;
 
 
     public static String formatTimeToString(LocalDateTime time) {
-        return time.format(formatter);
+        return time.format(FORMATTER);
     }
 
     public List<EventShortDto> makeEventShortDto(Collection<Event> events) {
@@ -64,7 +64,7 @@ public class EventClient {
 
         List<ViewStatsDto> viewStats = viewStatsClient.getStats(
                 START,
-                LocalDateTime.now().format(formatter),
+                LocalDateTime.now().format(FORMATTER),
                 urisToSend,
                 true
         );
