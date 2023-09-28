@@ -8,7 +8,6 @@ import ru.practicum.compilation.dto.NewCompilationDto;
 import ru.practicum.compilation.dto.UpdateCompilationRequest;
 import ru.practicum.compilation.service.CompilationService;
 
-import javax.validation.Valid;
 
 @RestController
 @RequiredArgsConstructor
@@ -19,7 +18,7 @@ public class CompilationsAdminController {
 
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
-    public CompilationDto createCompilation(@RequestBody @Valid NewCompilationDto newCompilationDto) {
+    public CompilationDto createCompilation(@RequestBody  NewCompilationDto newCompilationDto) {
         return compilationsService.createNewCompilation(newCompilationDto);
     }
 
@@ -31,7 +30,7 @@ public class CompilationsAdminController {
 
     @PatchMapping("/{compId}")
     public CompilationDto updateCompilation(@PathVariable Long compId,
-                                            @RequestBody @Valid UpdateCompilationRequest updateCompilationRequest) {
+                                            @RequestBody  UpdateCompilationRequest updateCompilationRequest) {
         return compilationsService.updateCompilation(compId, updateCompilationRequest);
     }
 }
