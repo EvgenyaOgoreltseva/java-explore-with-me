@@ -29,7 +29,7 @@ import java.util.Optional;
 
 @Service
 @RequiredArgsConstructor
-public class CommentServiceImpl implements CommentService{
+public class CommentServiceImpl implements CommentService {
 
     private final CommentRepository commentRepository;
     private final UserRepository userRepository;
@@ -41,7 +41,7 @@ public class CommentServiceImpl implements CommentService{
     public CommentResponseDto addComment(Long userId, Long eventId, NewCommentDto commentDto) {
         User user = userRepository.findById(userId).orElseThrow(() -> new UserNotFoundException("Пользователь не найден"));
         Event event = getEventById(eventId);
-        
+
         if (event.getState() != State.PUBLISHED) {
             throw new DataConflictException("Событие не опубликовано");
         }
