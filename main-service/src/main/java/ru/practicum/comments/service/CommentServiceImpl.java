@@ -27,7 +27,6 @@ import ru.practicum.user.repository.UserRepository;
 import java.util.List;
 import java.util.Objects;
 import java.util.Optional;
-import java.util.logging.Logger;
 
 @Service
 @Slf4j
@@ -38,7 +37,6 @@ public class CommentServiceImpl implements CommentService {
     private final UserRepository userRepository;
     private final EventRepository eventRepository;
     private final ParticipationRequestRepository participationRequest;
-
 
 
     @Override
