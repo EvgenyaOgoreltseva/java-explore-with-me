@@ -2,6 +2,7 @@ package ru.practicum.comments.service;
 
 import com.sun.nio.sctp.IllegalReceiveException;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -26,8 +27,10 @@ import ru.practicum.user.repository.UserRepository;
 import java.util.List;
 import java.util.Objects;
 import java.util.Optional;
+import java.util.logging.Logger;
 
 @Service
+@Slf4j
 @RequiredArgsConstructor
 public class CommentServiceImpl implements CommentService {
 
@@ -35,6 +38,8 @@ public class CommentServiceImpl implements CommentService {
     private final UserRepository userRepository;
     private final EventRepository eventRepository;
     private final ParticipationRequestRepository participationRequest;
+
+
 
     @Override
     @Transactional
@@ -56,6 +61,7 @@ public class CommentServiceImpl implements CommentService {
         if (foundComment.isPresent()) {
             throw new DataConflictException("Можно оставить только один комментарий");
         }
+        log.info("Комментарий сохранен");
         return CommentMapper.toCommentResponseDto(commentRepository.save(CommentMapper.toComment(commentDto, user, event)));
     }
 
@@ -65,6 +71,7 @@ public class CommentServiceImpl implements CommentService {
         Comment comment = getCommentById(commentId);
         checkIfUserIsTheAuthor(comment.getAuthor().getId(), userId);
         commentRepository.deleteById(commentId);
+        log.info("Комментарий удален");
     }
 
     @Override
@@ -78,11 +85,12 @@ public class CommentServiceImpl implements CommentService {
         if (StringUtils.hasLength(newText)) {
             comment.setText(newText);
         }
+        log.info("Комментарий обновлен");
         return CommentMapper.toCommentResponseDto(commentRepository.save(comment));
     }
 
     @Override
-    @Transactional
+    @Transactional(readOnly = true)
     public List<CommentResponseDto> getAllCommentsByEventId(Long eventId, Integer from, Integer size) {
         if (size <= 0 || from < 0) {
             throw new IllegalReceiveException("Неверно указан параметр");
@@ -93,7 +101,7 @@ public class CommentServiceImpl implements CommentService {
     }
 
     @Override
-    @Transactional
+    @Transactional(readOnly = true)
     public List<CommentResponseDto> get10LatestCommentsByEventId(Long eventId) {
         getEventById(eventId);
         return CommentMapper.toListOfCommentResponseDto(commentRepository.findTop10ByEventIdOrderByCreatedOnDesc(eventId));
@@ -101,7 +109,7 @@ public class CommentServiceImpl implements CommentService {
 
     private void checkIfUserIsTheAuthor(Long authorId, Long userId) {
         if (!Objects.equals(authorId, userId)) {
-            throw new DataConflictException("Не автор");
+            throw new DataConflictException("Автор не найден");
         }
     }
 
